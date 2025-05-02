@@ -5,8 +5,8 @@
 - [x] Creazione repository GitHub
 - [x] Inizializzazione progetto Vue 3 con Vite
 - [x] Collegamento repository locale a GitHub
-- [ ] Installazione e configurazione Firebase (`firebase.js`)
-- [ ] Verifica connessione Firestore e Auth
+- [x] Installazione e configurazione Firebase (`firebase.js`)
+- [x] Verifica connessione Firestore e Auth
 
 ---
 
@@ -63,7 +63,6 @@
 
 ## 🧪 Extra (Opzionali)
 
-- [ ] Notifiche email automatiche per strumenti in scadenza
-- [ ] Sistema ruoli (admin, utente)
+- [ ] Sistema ruoli - eventuale aggiunta utenti dall'admin
 - [ ] Storico assegnazioni strumenti
 - [ ] Import/Export dati CSV

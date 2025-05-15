@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Login.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import Strumenti from '@/views/Strumenti.vue'
 import { auth } from '@/firebase/firebase'
 
 const routes = [
     { path: '/login', name: 'Login', component: Login },
     { path: '/', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+	{ path: '/strumenti', name: 'Strumenti', component: Strumenti, meta: { requiresAuth: true } },
 ]
 
 const router = createRouter({

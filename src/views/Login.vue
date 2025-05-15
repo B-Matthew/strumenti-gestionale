@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
-    <div class="w-full max-w-7xl">
+    <div class="w-full container">
       <!-- Card con effetto glassmorphism -->
       <div class="bg-white bg-opacity-80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden">
         <!-- Header con logo/titolo -->
@@ -89,7 +89,6 @@
             </div>
           </div>
         </form>
-      
       </div>
     </div>
   </div>

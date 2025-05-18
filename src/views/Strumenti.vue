@@ -108,11 +108,11 @@
 								<div class="ml-5 w-0 flex-1">
 									<dl>
 										<dt class="text-sm font-medium text-gray-500 truncate">
-											In Prestito
+											Assegnato
 										</dt>
 										<dd>
 											<div class="text-lg font-medium text-gray-900">
-												{{ strumentiInPrestito.length }}
+												{{ strumentiInAssegnato.length }}
 											</div>
 										</dd>
 									</dl>
@@ -159,12 +159,12 @@
 						</h3>
 						<div class="flex space-x-2">
 							<input type="text" placeholder="Cerca strumento..."
-								class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2">
+								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2">
 							<select
-								class="text-red shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
 								<option value="" selected>Tutti gli stati</option>
 								<option value="disponibile">Disponibile</option>
-								<option value="prestito">In Prestito</option>
+								<option value="disponibile">Assegnato</option>
 								<option value="manutenzione">In Manutenzione</option>
 							</select>
 						</div>
@@ -227,8 +227,8 @@ const strumentiDisponibili = computed(() => {
 	return strumenti.value.filter(s => s.stato === 'disponibile')
 })
 
-const strumentiInPrestito = computed(() => {
-	return strumenti.value.filter(s => s.stato === 'prestito')
+const strumentiInAssegnato = computed(() => {
+	return strumenti.value.filter(s => s.stato === 'assegnato')
 })
 
 const strumentiInManutenzione = computed(() => {

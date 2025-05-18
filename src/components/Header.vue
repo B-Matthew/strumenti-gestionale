@@ -8,14 +8,10 @@
 					<RouterLink to="/" class="flex">
 						<div class="flex-shrink-0 flex items-center">
 							<div
-								class="w-8 h-8 rounded bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-									fill="currentColor">
-									<path
-										d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" />
-								</svg>
+								class="rounded flex items-center justify-center h-full py-2">
+								<img class="w-full h-full object-contain" src="/logo-cobetsrl.svg" alt="" />
 							</div>
-							<span class="ml-2 text-xl font-semibold text-gray-800">Gestionale Strumenti</span>
+							<!-- <span class="ml-2 text-xl font-semibold text-gray-800">Gestionale Strumenti</span> -->
 						</div>
 					</RouterLink>
 
@@ -48,7 +44,7 @@
 							<div v-if="isDropdownOpen"
 								class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5  group-hover:block">
 								<button @click="signOut"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+									class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
 							</div>
 						</div>
 					</div>

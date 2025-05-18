@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue, js, ts, jsx, tsx}"],
   theme: {
-    extend: {},
+	// colors: {
+	// 	primary: "#041B39",
+	// 	secondary: "#609D2F",
+	// 	green: "#A6D37F"
+	// },
+    extend: {
+		
+	},
 	container: {
 	  screens: {
 		sm: "1280px",

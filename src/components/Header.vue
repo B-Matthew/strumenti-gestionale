@@ -1,15 +1,14 @@
 <template>
 	<header>
 		<!-- Header/Navbar -->
-		<nav class="bg-white border-b border-gray-200 shadow-sm">
+		<nav class="bg-primary border-b border-gray-200 shadow-sm">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
 					<!-- Logo e titolo -->
 					<RouterLink to="/" class="flex">
 						<div class="flex-shrink-0 flex items-center">
-							<div
-								class="rounded flex items-center justify-center h-full py-2">
-								<img class="w-full h-full object-contain" src="/logo-cobetsrl.svg" alt="" />
+							<div class="rounded flex items-center justify-center h-full py-2">
+								<img class="w-full h-full object-contain" src="/logo.jpg" alt="" />
 							</div>
 							<!-- <span class="ml-2 text-xl font-semibold text-gray-800">Gestionale Strumenti</span> -->
 						</div>
@@ -17,8 +16,7 @@
 
 					<!-- Pulsanti e profilo utente -->
 					<div class="flex items-center">
-						<button
-							class="p-2 rounded-full text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+						<button class="p-2 rounded-full text-whitefocus:outline-none focus:ring-2 focus:ring-blue-500">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
 								stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -31,21 +29,32 @@
 								<button type="button" @click="toggleDropdown"
 									class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
 									<div
-										class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
+										class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-primary font-semibold">
 										U
 									</div>
 								</button>
 								<div class="ml-2 hidden md:block">
-									<div class="text-sm font-medium text-gray-700">Utente</div>
-									<div class="text-xs text-gray-500">{{ user.email }}</div>
+									<div class="text-sm font-medium text-white">Utente</div>
+									<div class="text-xs text-gray-400">{{ user.email }}</div>
 								</div>
 							</div>
 							<!-- creo un dropdown menu per il logout adattato come stile-->
-							<div v-if="isDropdownOpen"
-								class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5  group-hover:block">
-								<button @click="signOut"
-									class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+							<div v-if="isDropdownOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 backdrop-blur-2xl">
+								<div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+									<h2 class="text-lg font-semibold text-primary mb-4">Sei sicuro di voler uscire?
+									</h2>
+									<div class="flex justify-center gap-4">
+										<button @click="signOut" class="btn_base">
+											Esci
+										</button>
+										<button @click="isDropdownOpen = false"
+											class="btn_base">
+											Annulla
+										</button>
+									</div>
+								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,4 @@
 <template>
-	<Header />
 	<div class="min-h-screen bg-gray-200">
 		<!-- Main Content -->
 		<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

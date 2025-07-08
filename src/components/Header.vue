@@ -1,5 +1,5 @@
 <template>
-	<header>
+	<header class="fixed top-0 left-0 right-0 z-50">
 		<!-- Header/Navbar -->
 		<nav class="bg-primary border-b border-gray-200 shadow-sm">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,11 +35,12 @@
 								</button>
 								<div class="ml-2 hidden md:block">
 									<div class="text-sm font-medium text-white">Utente</div>
-									<div class="text-xs text-gray-400">{{ user.email }}</div>
+									<div class="text-xs text-gray-400">{{ user?.email }}</div>
 								</div>
 							</div>
 							<!-- creo un dropdown menu per il logout adattato come stile-->
-							<div v-if="isDropdownOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 backdrop-blur-2xl">
+							<div v-if="isDropdownOpen"
+								class="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 backdrop-blur-2xl">
 								<div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
 									<h2 class="text-lg font-semibold text-primary mb-4">Sei sicuro di voler uscire?
 									</h2>
@@ -47,8 +48,7 @@
 										<button @click="signOut" class="btn_base">
 											Esci
 										</button>
-										<button @click="isDropdownOpen = false"
-											class="btn_base">
+										<button @click="isDropdownOpen = false" class="btn_base">
 											Annulla
 										</button>
 									</div>
@@ -67,9 +67,12 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { auth } from '@/firebase/firebase'
+import { useAuth } from '@/composables/useAuth'
 
-const user = auth.currentUser
+const { user } = useAuth() // 🔁 questo è il vero utente attuale, reattivo
+
 const router = useRouter()
+
 const isDropdownOpen = ref(false)
 const dropdown = ref(null)
 
@@ -78,20 +81,22 @@ const toggleDropdown = () => {
 }
 
 const handleClickOutside = (event) => {
-	if (!dropdown.value.contains(event.target)) {
+	if (dropdown.value && !dropdown.value.contains(event.target)) {
 		isDropdownOpen.value = false
 	}
 }
 
 const signOut = () => {
 	auth.signOut()
-	router.push('/login')
-	.then(() => {
-		console.log('Logout effettuato con successo')
-	})
-	.catch((error) => {
-		console.error('Errore durante il logout:', error)
-	})
+		.then(() => {
+			router.push('/login')
+		})
+		.catch((error) => {
+			console.error('Errore durante il logout:', error)
+		})
+		.finally(() => {
+			isDropdownOpen.value = false
+		})
 }
 
 onMounted(() => {
@@ -101,6 +106,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
 	document.removeEventListener('click', handleClickOutside)
 })
+
 
 </script>
 

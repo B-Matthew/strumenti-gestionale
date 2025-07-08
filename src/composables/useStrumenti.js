@@ -9,7 +9,7 @@ import {
   updateDoc,
   onSnapshot,
 } from "firebase/firestore";
-import { db } from "@/firebase/firebase"; // Assicurati che il file firebase.js esporti `db`
+import { db } from "@/firebase/firebase";
 
 const strumentiRef = collection(db, "strumenti");
 

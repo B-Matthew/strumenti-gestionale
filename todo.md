@@ -14,17 +14,18 @@
 
 - [x] Creazione pagina login
 - [x] Implementazione Firebase Auth (email/password)
-- [ ] Gestione sessione utente (login/logout)
+- [x] Gestione sessione utente (login/logout)
 - [x] Protezione delle rotte (solo utente autenticato può accedere)
 
 ---
 
 ## 🛠️ Fase 3 – Gestione strumenti
 
-- [ ] Definizione struttura collezione `strumenti` su Firestore
+- [x] Definizione struttura collezione `strumenti` su Firestore
 - [ ] Pagina lista strumenti (con data scadenza, codice, stato)
-- [ ] Funzionalità: Aggiungi / Modifica / Elimina strumento
-- [ ] Evidenzia strumenti in scadenza o scaduti
+- [x] Funzionalità: Aggiungi / Modifica / Elimina strumento
+- [x] Evidenzia strumenti in scadenza o scaduti
+- [x] Allineare reports strumenti
 
 ---
 

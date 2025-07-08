@@ -12,10 +12,10 @@
 
 ## 🔐 Fase 2 – Autenticazione
 
-- [ ] Creazione pagina login
-- [ ] Implementazione Firebase Auth (email/password)
+- [x] Creazione pagina login
+- [x] Implementazione Firebase Auth (email/password)
 - [ ] Gestione sessione utente (login/logout)
-- [ ] Protezione delle rotte (solo utente autenticato può accedere)
+- [x] Protezione delle rotte (solo utente autenticato può accedere)
 
 ---
 
@@ -32,6 +32,7 @@
 
 - [ ] Definizione struttura collezione `dipendenti`
 - [ ] CRUD dipendenti (nome, ruolo, email...)
+- [ ] Funzionalità: Aggiungi / Modifica / Elimina dipendente
 - [ ] Pagina lista dipendenti
 
 ---

@@ -130,7 +130,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { useStrumenti } from '@/composables/useStrumenti'
 import StrumentoCard from '@/components/strumenti/StrumentoCard.vue'
-import Header from '@/components/Header.vue'
 import StrumentoForm from '@/components/strumenti/StrumentoForm.vue'
 import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue'
 

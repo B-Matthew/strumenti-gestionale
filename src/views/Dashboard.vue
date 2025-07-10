@@ -185,12 +185,8 @@
 
 <script setup>
 // Per ora mantenuto vuoto, pronto per l'aggiunta di logica
-import { ref, onMounted } from 'vue'
-import Header from '@/components/Header.vue'
 import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue';
 
-// Qui potrai aggiungere la logica per caricare i dati dalla tua Firestore
-// e gestire le funzionalità della dashboard
 </script>
 
 <style scoped>

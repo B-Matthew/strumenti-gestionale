@@ -22,10 +22,11 @@
 ## 🛠️ Fase 3 – Gestione strumenti
 
 - [x] Definizione struttura collezione `strumenti` su Firestore
-- [ ] Pagina lista strumenti (con data scadenza, codice, stato)
+- [x] Pagina lista strumenti (con data scadenza, codice, stato)
 - [x] Funzionalità: Aggiungi / Modifica / Elimina strumento
 - [x] Evidenzia strumenti in scadenza o scaduti
 - [x] Allineare reports strumenti
+- [ ] Revisione stati in base ai collegamenti con i dipendenti
 
 ---
 

@@ -4,16 +4,27 @@ import Dashboard from '@/views/Dashboard.vue'
 import Strumenti from '@/views/Strumenti.vue'
 import { auth } from '@/firebase/firebase'
 import { onAuthStateChanged } from "firebase/auth";
+import Dipendenti from '@/views/Dipendenti.vue'
 
 const routes = [
     { path: '/login', name: 'Login', component: Login, meta: {layout: 'no-header'} },
     { path: '/', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
 	{ path: '/strumenti', name: 'Strumenti', component: Strumenti, meta: { requiresAuth: true } },
+	{ path: '/dipendenti', name: 'Dipendenti', component: Dipendenti, meta: { requiresAuth: true } },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
+	scrollBehavior(to, from, savedPosition) {
+		// Se disponibile, torna alla posizione salvata (es. tasto Indietro)
+		if (savedPosition) {
+			return savedPosition
+		} else {
+			// Altrimenti scrolla in cima alla pagina
+			return { top: 0 }
+		}
+	}
 })
 
 let isAuthChecked = false;

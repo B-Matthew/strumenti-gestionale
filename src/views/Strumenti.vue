@@ -38,7 +38,7 @@
 						</h3>
 						<div class="flex space-x-2">
 							<input type="text" placeholder="Cerca strumento..." v-model="filtri.ricerca"
-								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2">
+								class="text-gray-900 min-w-[300px] shadow-sm block w-full sm:text-sm border-gray-300 rounded-md p-2">
 							<select v-model="filtri.stato"
 								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
 								<option value="" selected>Tutti gli stati</option>
@@ -130,7 +130,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { useStrumenti } from '@/composables/useStrumenti'
 import StrumentoCard from '@/components/strumenti/StrumentoCard.vue'
-import Header from '@/components/Header.vue'
 import StrumentoForm from '@/components/strumenti/StrumentoForm.vue'
 import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue'
 

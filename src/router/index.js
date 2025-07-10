@@ -4,13 +4,13 @@ import Dashboard from '@/views/Dashboard.vue'
 import Strumenti from '@/views/Strumenti.vue'
 import { auth } from '@/firebase/firebase'
 import { onAuthStateChanged } from "firebase/auth";
-import Dipendenti from '@/views/Dipendenti.vue'
+import Operatori from '../views/Operatori.vue'
 
 const routes = [
     { path: '/login', name: 'Login', component: Login, meta: {layout: 'no-header'} },
     { path: '/', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
 	{ path: '/strumenti', name: 'Strumenti', component: Strumenti, meta: { requiresAuth: true } },
-	{ path: '/dipendenti', name: 'Dipendenti', component: Dipendenti, meta: { requiresAuth: true } },
+	{ path: '/operatori', name: 'Operatori', component: Operatori, meta: { requiresAuth: true } },
 ]
 
 const router = createRouter({

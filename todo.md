@@ -22,28 +22,28 @@
 ## 🛠️ Fase 3 – Gestione strumenti
 
 - [x] Definizione struttura collezione `strumenti` su Firestore
-- [x] Pagina lista strumenti (con data scadenza, codice, stato)
+- [ ] Pagina lista strumenti (con data scadenza, codice, stato)
 - [x] Funzionalità: Aggiungi / Modifica / Elimina strumento
 - [x] Evidenzia strumenti in scadenza o scaduti
 - [x] Allineare reports strumenti
-- [ ] Revisione stati in base ai collegamenti con i dipendenti
+- [ ] Revisione stati in base ai collegamenti con i operatori
 
 ---
 
-## 👷‍♂️ Fase 4 – Gestione dipendenti
+## 👷‍♂️ Fase 4 – Gestione operatori
 
-- [ ] Definizione struttura collezione `dipendenti`
-- [ ] CRUD dipendenti (nome, ruolo, email...)
-- [ ] Funzionalità: Aggiungi / Modifica / Elimina dipendente
-- [ ] Pagina lista dipendenti
+- [x] Definizione struttura collezione `operatori`
+- [x] CRUD operatori (nome, ruolo, email...)
+- [x] Funzionalità: Aggiungi / Modifica / Elimina operatore
+- [ ] Pagina lista operatori
 
 ---
 
 ## 🔗 Fase 5 – Assegnazione strumenti
 
-- [ ] Collegamento strumento ⇄ dipendente
-- [ ] Visualizzazione strumenti assegnati a ogni dipendente
-- [ ] Visualizzazione dipendente associato a ogni strumento
+- [ ] Collegamento strumento ⇄ operatore
+- [ ] Visualizzazione strumenti assegnati a ogni operatore
+- [ ] Visualizzazione operatore associato a ogni strumento
 
 ---
 
@@ -51,7 +51,7 @@
 
 - [ ] Filtro strumenti per: assegnato / libero / scaduto
 - [ ] Pannello riepilogativo: n° strumenti attivi, assegnati, scaduti
-- [ ] Ricerca per nome, codice, dipendente
+- [ ] Ricerca per nome, codice, operatore
 
 ---
 

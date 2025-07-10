@@ -33,7 +33,7 @@
 										U
 									</div>
 								</button>
-								<div class="ml-2 hidden md:block">
+								<div @click="toggleDropdown" class="ml-2 hidden md:block cursor-pointer">
 									<div class="text-sm font-medium text-white">Utente</div>
 									<div class="text-xs text-gray-400">{{ user?.email }}</div>
 								</div>

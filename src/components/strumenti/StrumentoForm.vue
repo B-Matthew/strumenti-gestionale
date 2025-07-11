@@ -92,6 +92,7 @@ const emit = defineEmits(['salvato', 'annulla'])
 const { aggiungiStrumento, modificaStrumento } = useStrumenti()
 
 const isEdit = ref(!!props.iniziali)
+
 const loading = ref(false)
 
 const form = reactive({
@@ -104,18 +105,20 @@ const form = reactive({
 // Computed per validare il form
 const isFormValid = computed(() => {
 	return form.nome.trim() !== '' &&
-		form.codice.trim() !== '' &&
-		form.dataScadenza instanceof Date && !isNaN(form.dataScadenza)
+		form.codice.trim() !== '' 
+		// &&
+		// form.dataScadenza instanceof Date && !isNaN(form.dataScadenza)
 })
 
 // Se stai modificando, inizializza il form con i dati
 watch(
 	() => props.iniziali,
 	(val) => {
+				
 		if (val) {
 			form.nome = val.nome || ''
 			form.codice = val.codice || ''
-			form.dataScadenza = val.dataScadenza || ''
+			form.dataScadenza = val.dataScadenza?.seconds * 1000 || ''
 			form.stato = val.stato || 'disponibile'
 		}
 	},

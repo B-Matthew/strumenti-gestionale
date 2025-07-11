@@ -30,12 +30,24 @@
 									class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
 									<div
 										class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-primary font-semibold">
-										U
+										<svg class="h-5 w-5" fill="currentColor" height="200px" width="200px" version="1.1" id="Layer_1"
+											xmlns="http://www.w3.org/2000/svg"
+											xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+											enable-background="new 0 0 512 512" xml:space="preserve">
+											<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+											<g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+												stroke-linejoin="round"></g>
+											<g id="SVGRepo_iconCarrier">
+												<path
+													d="M448,362.7l-117.3-21.3C320,320,320,310.7,320,298.7c10.7-10.7,32-21.3,32-32c10.7-32,10.7-53.3,10.7-53.3 c5.5-8,21.3-21.3,21.3-42.7s-21.3-42.7-21.3-53.3C362.7,32,319.2,0,256,0c-60.5,0-106.7,32-106.7,117.3c0,10.7-21.3,32-21.3,53.3 s15.2,35.4,21.3,42.7c0,0,0,21.3,10.7,53.3c0,10.7,21.3,21.3,32,32c0,10.7,0,21.3-10.7,42.7L64,362.7C21.3,373.3,0,448,0,512h512 C512,448,490.7,373.3,448,362.7z">
+												</path>
+											</g>
+										</svg>
 									</div>
 								</button>
 								<div @click="toggleDropdown" class="ml-2 hidden md:block cursor-pointer">
-									<div class="text-sm font-medium text-white">Utente</div>
-									<div class="text-xs text-gray-400">{{ user?.email }}</div>
+									<div class="text-sm font-medium text-white">{{ user?.email }}</div>
+									<div class="text-xs text-gray-400">Log out</div>
 								</div>
 							</div>
 							<!-- creo un dropdown menu per il logout adattato come stile-->

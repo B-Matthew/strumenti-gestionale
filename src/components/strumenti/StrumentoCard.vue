@@ -10,8 +10,8 @@
 						isScaduto ? 'bg-red-100 text-red-700' :
 							strumento.stato === 'disponibile' ? 'bg-green-100 text-green-700' :
 								strumento.stato === 'manutenzione' ? 'bg-yellow-100 text-yellow-700' :
-									strumento.stato === 'prestito' ? 'bg-orange-100 text-orange-700' :
-										'bg-blue-100 text-blue-700'
+									strumento.stato === 'assegnato' ? 'bg-blue-100 text-blue-700' :
+										'bg-gray-100 text-gray-700'
 					]">
 						<svg v-if="isScaduto" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
 							viewBox="0 0 24 24" stroke="currentColor">
@@ -22,10 +22,10 @@
 							class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
-						<svg v-else-if="strumento.stato === 'prestito'" xmlns="http://www.w3.org/2000/svg"
+						<svg v-else-if="strumento.stato === 'assegnato'" xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-								d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+								d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
 						</svg>
 						<svg v-else-if="strumento.stato === 'manutenzione'" xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,7 @@
 				</div>
 
 				<!-- Dettagli strumento -->
-				<div>
+				<div class="flex-1">
 					<h2 class="text-lg font-medium text-gray-900">{{ strumento.nome }}</h2>
 					<div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:space-x-6">
 						<div class="mt-2 flex items-center text-sm text-gray-500">
@@ -62,23 +62,90 @@
 							</span>
 						</div>
 					</div>
+
+					<!-- Info operatore assegnato -->
+					<div v-if="operatoreAssegnato" class="mt-3 p-3 bg-blue-50 rounded-lg">
+						<div class="flex items-center">
+							<svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+									clip-rule="evenodd" />
+							</svg>
+							<div>
+								<p class="text-sm font-medium text-blue-900">
+									Assegnato a: {{ operatoreAssegnato.nome }} {{ operatoreAssegnato.cognome }}
+								</p>
+								<p class="text-xs text-blue-700">
+									{{ operatoreAssegnato.ruolo }}
+									<span v-if="strumento.dataAssegnazione">
+										• Dal {{ formatData(strumento.dataAssegnazione) }}
+									</span>
+								</p>
+							</div>
+						</div>
+
+						<!-- Quick actions per l'assegnazione -->
+						<div class="mt-2 flex space-x-2">
+							<button @click="$emit('libera', strumento.id)"
+								class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200">
+								<svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M8 11V7a3 3 0 116 0m-3 7h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+								</svg>
+								Libera
+							</button>
+							<button @click="$emit('trasferisci', strumento.id)"
+								class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200">
+								<svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+								</svg>
+								Trasferisci
+							</button>
+						</div>
+					</div>
+
 					<div class="mt-2">
 						<span :class="[
 							'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
 							isScaduto ? 'bg-red-100 text-red-800' :
 								strumento.stato === 'disponibile' ? 'bg-green-100 text-green-800' :
-									strumento.stato === 'prestito' ? 'bg-orange-100 text-orange-800' :
+									strumento.stato === 'assegnato' ? 'bg-blue-100 text-blue-800' :
 										strumento.stato === 'manutenzione' ? 'bg-yellow-100 text-yellow-800' :
-										'bg-red-100 text-red-800'
+											'bg-gray-100 text-gray-800'
 						]">
 							{{ statoLabel }}
 						</span>
+					</div>
+
+					<!-- Note se presenti -->
+					<div v-if="strumento.note" class="mt-2">
+						<p class="text-sm text-gray-600 italic">
+							<svg class="inline h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd"
+									d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
+									clip-rule="evenodd" />
+							</svg>
+							{{ strumento.note }}
+						</p>
 					</div>
 				</div>
 			</div>
 
 			<!-- Azioni -->
 			<div class="mt-4 sm:mt-0 flex-shrink-0 flex">
+				<!-- Azioni veloci per assegnazione (se disponibile) -->
+				<div v-if="strumento.stato === 'disponibile'" class="mr-2">
+					<button @click="$emit('assegna', strumento.id)" type="button"
+						class="inline-flex items-center px-3 py-2 border border-green-300 shadow-sm text-sm leading-4 font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+							stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+						</svg>
+						Assegna
+					</button>
+				</div>
+
 				<button @click="$emit('modifica', strumento)" type="button"
 					class="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -103,7 +170,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useOperatori } from '@/composables/useOperatori'
 
 const props = defineProps({
 	strumento: {
@@ -112,33 +180,42 @@ const props = defineProps({
 	}
 })
 
+const { operatori, getOperatori } = useOperatori()
+
 // Computed per controllare se lo strumento è scaduto
 const isScaduto = computed(() => {
-	
 	const oggi = new Date()
 	const scadenza = new Date(props.strumento.dataScadenza.seconds * 1000)
-	
 	return scadenza < oggi
 })
 
 // Computed per l'etichetta dello stato
 const statoLabel = computed(() => {
-
 	const stati = {
 		'disponibile': 'Disponibile',
-		'prestito': 'In Prestito',
+		'assegnato': 'Assegnato',
 		'manutenzione': 'In Manutenzione'
+	}
+
+	if (isScaduto.value) {
+		return 'Scaduto'
 	}
 
 	return stati[props.strumento.stato] || 'N/D'
 })
 
+// Computed per operatore assegnato
+const operatoreAssegnato = computed(() => {
+	if (!props.strumento.operatoreAssegnato) return null
+	return operatori.value.find(op => op.id === props.strumento.operatoreAssegnato)
+})
+
 // Funzione per formattare la data
 const formatData = (dataString) => {
 	if (!dataString) return 'N/D'
-	
+
 	const data = new Date(dataString.seconds * 1000)
-	
+
 	return data.toLocaleDateString('it-IT', {
 		day: '2-digit',
 		month: '2-digit',
@@ -147,6 +224,9 @@ const formatData = (dataString) => {
 }
 
 // Definizione degli eventi emessi dal componente
-defineEmits(['modifica', 'elimina'])
+defineEmits(['modifica', 'elimina', 'assegna', 'libera', 'trasferisci'])
 
+onMounted(async () => {
+	await getOperatori()
+})
 </script>

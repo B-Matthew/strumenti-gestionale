@@ -23,14 +23,6 @@
 								</svg>
 								Aggiungi Strumento
 							</button>
-							<button @click="showAssegnazioniRapide = true" class="btn_base">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-									viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-								</svg>
-								Assegnazioni Rapide
-							</button>
 						</div>
 					</div>
 				</div>
@@ -164,106 +156,6 @@
 	<!-- Modal per assegnazione/trasferimento -->
 	<AssegnazioneModal v-if="showAssegnazioneModal" :strumento="strumentoPerAssegnazione" :modal-type="tipoAssegnazione"
 		@confermato="gestisciAssegnazione" @annulla="chiudiAssegnazione" />
-
-	<!-- Modal assegnazioni rapide -->
-	<div v-if="showAssegnazioniRapide"
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
-		<div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-auto p-6 max-h-[90vh] overflow-hidden">
-			<div class="mb-5 flex justify-between items-center">
-				<div>
-					<h3 class="text-lg font-medium text-gray-900">Assegnazioni Rapide</h3>
-					<p class="mt-1 text-sm text-gray-500">Visualizza e gestisci rapidamente tutte le assegnazioni
-						strumenti-operatori</p>
-				</div>
-				<button @click="showAssegnazioniRapide = false" class="text-gray-400 hover:text-gray-600">
-					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M6 18L18 6M6 6l12 12" />
-					</svg>
-				</button>
-			</div>
-
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[70vh] overflow-y-auto">
-				<!-- Strumenti disponibili -->
-				<div>
-					<h4 class="text-md font-medium text-gray-900 mb-3 flex items-center">
-						<svg class="h-5 w-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-							<path fill-rule="evenodd"
-								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-								clip-rule="evenodd" />
-						</svg>
-						Strumenti Disponibili ({{ strumentiDisponibili.length }})
-					</h4>
-					<div class="space-y-2">
-						<div v-for="strumento in strumentiDisponibili" :key="strumento.id"
-							class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-							<div class="flex justify-between items-center">
-								<div>
-									<p class="font-medium text-gray-900">{{ strumento.nome }}</p>
-									<p class="text-sm text-gray-500">{{ strumento.codice }}</p>
-								</div>
-								<button @click="onAssegna(strumento.id)"
-									class="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-md hover:bg-green-200">
-									Assegna
-								</button>
-							</div>
-						</div>
-						<div v-if="strumentiDisponibili.length === 0" class="text-center py-8 text-gray-500">
-							<svg class="h-12 w-12 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor"
-								viewBox="0 0 48 48">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M20 7L9 18l11 11m0-11h18" />
-							</svg>
-							<p>Nessuno strumento disponibile</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Strumenti assegnati -->
-				<div>
-					<h4 class="text-md font-medium text-gray-900 mb-3 flex items-center">
-						<svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-							<path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-								clip-rule="evenodd" />
-						</svg>
-						Strumenti Assegnati ({{ strumentiAssegnati.length }})
-					</h4>
-					<div class="space-y-2">
-						<div v-for="assegnazione in assegnazioniComplete" :key="assegnazione.strumento.id"
-							class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-							<div class="flex justify-between items-start">
-								<div class="flex-1">
-									<p class="font-medium text-gray-900">{{ assegnazione.strumento.nome }}</p>
-									<p class="text-sm text-gray-500">{{ assegnazione.strumento.codice }}</p>
-									<p class="text-sm text-blue-600 mt-1">
-										→ {{ assegnazione.operatore?.nome }} {{ assegnazione.operatore?.cognome }}
-									</p>
-								</div>
-								<div class="flex space-x-1">
-									<button @click="onTrasferisci(assegnazione.strumento.id)"
-										class="px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded hover:bg-orange-200">
-										Trasferisci
-									</button>
-									<button @click="onLibera(assegnazione.strumento.id)"
-										class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
-										Libera
-									</button>
-								</div>
-							</div>
-						</div>
-						<div v-if="strumentiAssegnati.length === 0" class="text-center py-8 text-gray-500">
-							<svg class="h-12 w-12 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor"
-								viewBox="0 0 48 48">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-							</svg>
-							<p>Nessuno strumento assegnato</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </template>
 
 <script setup>
@@ -295,7 +187,6 @@ const strumentoDaLiberare = ref(null)
 const showAssegnazioneModal = ref(false)
 const strumentoPerAssegnazione = ref(null)
 const tipoAssegnazione = ref('assegna') // 'assegna' | 'trasferisci'
-const showAssegnazioniRapide = ref(false)
 
 // Filtri
 const filtri = ref({

@@ -3,7 +3,7 @@
 	<div class="px-4 sm:px-0 mb-8">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			<!-- Stat 1 -->
-			<RouterLink to="/strumenti" class="bg-white overflow-hidden shadow rounded-lg">
+			<div class="bg-white overflow-hidden shadow rounded-lg">
 				<div class="px-4 py-5 sm:p-6">
 					<div class="flex items-center">
 						<div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 				</div>
-			</RouterLink>
+			</div>
 
 			<!-- Stat 2 -->
 			<div class="bg-white overflow-hidden shadow rounded-lg">

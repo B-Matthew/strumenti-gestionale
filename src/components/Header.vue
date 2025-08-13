@@ -47,7 +47,7 @@
 								</button>
 								<div @click="toggleDropdown" class="ml-2 hidden md:block cursor-pointer">
 									<div class="text-sm font-medium text-white">{{ user?.email }}</div>
-									<div class="text-xs text-gray-400">Log out</div>
+									<div class="text-xs text-gray-400">Esci</div>
 								</div>
 							</div>
 							<!-- creo un dropdown menu per il logout adattato come stile-->

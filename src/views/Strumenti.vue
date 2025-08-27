@@ -14,7 +14,7 @@
 							assegnazione operatori.
 						</p>
 						<div class="mt-6 flex space-x-4">
-							<button @click="showForm = true" class="btn_base_v2">
+							<button @click="showForm.openModal()" class="btn_base_v2">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
 									fill="currentColor">
 									<path fill-rule="evenodd"
@@ -40,17 +40,17 @@
 						</h3>
 						<div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 w-full md:w-auto">
 							<input type="text" placeholder="Cerca strumento..." v-model="filtri.ricerca"
-								class="text-gray-900 min-w-[300px] shadow-sm block w-full sm:text-sm border-gray-300 rounded-md p-2">
+								class="text-gray-900 min-w-[300px] shadow-sm block w-full sm:text-sm border-[1px] border-gray-300 rounded-md p-2">
 							<select v-model="filtri.stato"
-								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+								class="text-gray-900 shadow-sm block w-full sm:text-sm border-[1px] border-gray-300 rounded-md p-2">
 								<option value="" selected>Tutti gli stati</option>
 								<option value="disponibile">Disponibile</option>
 								<option value="assegnato">Assegnato</option>
 								<option value="manutenzione">In Manutenzione</option>
 							</select>
 							<select v-model="filtri.operatore"
-								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
-								<option value="">Tutti gli operatori</option>
+								class="text-gray-900 shadow-sm block w-full sm:text-sm border-[1px] border-gray-300 rounded-md p-2">
+								<option value="" selected>Tutti gli operatori</option>
 								<option v-for="operatore in operatori" :key="operatore.id" :value="operatore.id">
 									{{ operatore.nome }} {{ operatore.cognome }}
 								</option>
@@ -71,7 +71,7 @@
 							<p class="mt-2">
 								{{ hasFiltriAttivi ? 'Nessuno strumento trovato con i filtri attuali' : 'Nessuno strumento trovato' }}
 							</p>
-							<button @click="showForm = true"
+							<button @click="showForm.openModal()"
 								class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
 								{{ hasFiltriAttivi ? 'Aggiungi strumento' : 'Aggiungi il primo strumento' }}
 							</button>
@@ -83,11 +83,11 @@
 	</div>
 
 	<!-- Form modale per aggiungere/modificare strumenti -->
-	<StrumentoForm v-if="showForm" :iniziali="strumentoSelezionato" @salvato="gestisciSalvataggio"
+	<StrumentoForm v-if="showForm.isOpen.value" :iniziali="strumentoSelezionato" @salvato="gestisciSalvataggio"
 		@annulla="chiudiForm" />
 
 	<!-- Modal di conferma eliminazione -->
-	<div v-if="mostraConfermaEliminazione"
+	<div v-if="mostraConfermaEliminazione.isOpen.value"
 		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="flex items-center">
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 			<div class="mt-5 flex justify-end space-x-3">
-				<button @click="mostraConfermaEliminazione = false"
+				<button @click="mostraConfermaEliminazione.closeModal()"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 					Annulla
 				</button>
@@ -120,7 +120,7 @@
 	</div>
 
 	<!-- Modal per liberare strumento -->
-	<div v-if="mostraConfermaLiberazione"
+	<div v-if="mostraConfermaLiberazione.isOpen.value"
 		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="flex items-center">
@@ -141,7 +141,7 @@
 				</div>
 			</div>
 			<div class="mt-5 flex justify-end space-x-3">
-				<button @click="mostraConfermaLiberazione = false"
+				<button @click="mostraConfermaLiberazione.closeModal()"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 					Annulla
 				</button>
@@ -154,7 +154,7 @@
 	</div>
 
 	<!-- Modal per assegnazione/trasferimento -->
-	<AssegnazioneModal v-if="showAssegnazioneModal" :strumento="strumentoPerAssegnazione" :modal-type="tipoAssegnazione"
+	<AssegnazioneModal v-if="showAssegnazioneModal.isOpen.value" :strumento="strumentoPerAssegnazione" :modal-type="tipoAssegnazione"
 		@confermato="gestisciAssegnazione" @annulla="chiudiAssegnazione" />
 </template>
 
@@ -163,6 +163,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useStrumenti } from '@/composables/useStrumenti'
 import { useOperatori } from '@/composables/useOperatori'
 import { useAssegnazioni } from '@/composables/useAssegnazioni'
+import { useModal } from '@/composables/modal-composable'
 import StrumentoCard from '@/components/strumenti/StrumentoCard.vue'
 import StrumentoForm from '@/components/strumenti/StrumentoForm.vue'
 import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue'
@@ -178,13 +179,13 @@ const {
 } = useAssegnazioni()
 
 // Stato del componente
-const showForm = ref(false)
+const showForm = useModal()
 const strumentoSelezionato = ref(null)
-const mostraConfermaEliminazione = ref(false)
+const mostraConfermaEliminazione = useModal()
 const strumentoDaEliminare = ref(null)
-const mostraConfermaLiberazione = ref(false)
+const mostraConfermaLiberazione = useModal()
 const strumentoDaLiberare = ref(null)
-const showAssegnazioneModal = ref(false)
+const showAssegnazioneModal = useModal()
 const strumentoPerAssegnazione = ref(null)
 const tipoAssegnazione = ref('assegna') // 'assegna' | 'trasferisci'
 
@@ -232,14 +233,14 @@ const hasFiltriAttivi = computed(() => {
 // Gestione delle azioni
 const onModifica = (strumento) => {
 	strumentoSelezionato.value = { ...strumento }
-	showForm.value = true
+	showForm.openModal()
 }
 
 const onElimina = (strumentoId) => {
 	const strumento = strumenti.value.find(s => s.id === strumentoId)
 	if (strumento) {
 		strumentoDaEliminare.value = strumento
-		mostraConfermaEliminazione.value = true
+		mostraConfermaEliminazione.openModal()
 	}
 }
 
@@ -248,7 +249,7 @@ const onAssegna = (strumentoId) => {
 	if (strumento) {
 		strumentoPerAssegnazione.value = strumento
 		tipoAssegnazione.value = 'assegna'
-		showAssegnazioneModal.value = true
+		showAssegnazioneModal.openModal()
 	}
 }
 
@@ -256,7 +257,7 @@ const onLibera = (strumentoId) => {
 	const strumento = strumenti.value.find(s => s.id === strumentoId)
 	if (strumento) {
 		strumentoDaLiberare.value = strumento
-		mostraConfermaLiberazione.value = true
+		mostraConfermaLiberazione.openModal()
 	}
 }
 
@@ -265,14 +266,14 @@ const onTrasferisci = (strumentoId) => {
 	if (strumento) {
 		strumentoPerAssegnazione.value = strumento
 		tipoAssegnazione.value = 'trasferisci'
-		showAssegnazioneModal.value = true
+		showAssegnazioneModal.openModal()
 	}
 }
 
 const confermaEliminazione = async () => {
 	if (strumentoDaEliminare.value) {
 		await eliminaStrumento(strumentoDaEliminare.value.id)
-		mostraConfermaEliminazione.value = false
+		mostraConfermaEliminazione.closeModal()
 		strumentoDaEliminare.value = null
 		await getStrumenti()
 	}
@@ -281,7 +282,7 @@ const confermaEliminazione = async () => {
 const confermaLiberazione = async () => {
 	if (strumentoDaLiberare.value) {
 		await liberaStrumento(strumentoDaLiberare.value.id)
-		mostraConfermaLiberazione.value = false
+		mostraConfermaLiberazione.closeModal()
 		strumentoDaLiberare.value = null
 		await getStrumenti()
 	}
@@ -293,7 +294,7 @@ const gestisciAssegnazione = async () => {
 }
 
 const chiudiAssegnazione = () => {
-	showAssegnazioneModal.value = false
+	showAssegnazioneModal.closeModal()
 	strumentoPerAssegnazione.value = null
 	tipoAssegnazione.value = 'assegna'
 }
@@ -304,7 +305,7 @@ const gestisciSalvataggio = async () => {
 }
 
 const chiudiForm = () => {
-	showForm.value = false
+	showForm.closeModal()
 	strumentoSelezionato.value = null
 }
 

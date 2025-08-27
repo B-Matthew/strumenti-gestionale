@@ -10,7 +10,7 @@
 						isScaduto ? 'bg-red-100 text-red-700' :
 							strumento.stato === 'disponibile' ? 'bg-green-100 text-green-700' :
 								strumento.stato === 'manutenzione' ? 'bg-yellow-100 text-yellow-700' :
-									strumento.stato === 'assegnato' ? 'bg-blue-100 text-blue-700' :
+									strumento.stato === 'assegnato' ? 'bg-orange-100 text-orange-500' :
 										'bg-gray-100 text-gray-700'
 					]">
 						<svg v-if="isScaduto" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -109,7 +109,7 @@
 							'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
 							isScaduto ? 'bg-red-100 text-red-800' :
 								strumento.stato === 'disponibile' ? 'bg-green-100 text-green-800' :
-									strumento.stato === 'assegnato' ? 'bg-blue-100 text-blue-800' :
+									strumento.stato === 'assegnato' ? 'bg-orange-100 text-orange-800' :
 										strumento.stato === 'manutenzione' ? 'bg-yellow-100 text-yellow-800' :
 											'bg-gray-100 text-gray-800'
 						]">
@@ -132,9 +132,9 @@
 			</div>
 
 			<!-- Azioni -->
-			<div class="mt-4 sm:mt-0 flex-shrink-0 flex items-center">
+			<div class="mt-4 sm:mt-0 flex-shrink-0 flex items-center flex-wrap gap-2">
 				<!-- Azioni veloci per assegnazione (se disponibile) -->
-				<div v-if="strumento.stato === 'disponibile'" class="mr-2">
+				<div v-if="strumento.stato === 'disponibile'">
 					<button @click="$emit('assegna', strumento.id)" type="button"
 						class="inline-flex items-center px-3 py-2 border border-green-300 shadow-sm text-sm leading-4 font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -146,7 +146,7 @@
 					</button>
 				</div>
 
-				<div class="mr-2">
+				<div>
 					<button @click="$emit('modifica', strumento)" type="button"
 						class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"

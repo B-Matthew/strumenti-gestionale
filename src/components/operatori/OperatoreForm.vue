@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
+		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50 px-4">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="mb-5">
 				<h3 class="text-lg font-medium text-gray-900">
@@ -47,7 +47,7 @@
 						Annulla
 					</button>
 					<button type="submit" :disabled="!isFormValid" :class="[
-						'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+						'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white',
 						isFormValid ? 'bg-primary' : 'bg-gray-400 cursor-not-allowed'
 					]">
 						<svg v-if="loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"

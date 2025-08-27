@@ -48,9 +48,9 @@
 					<!-- Statistiche strumenti -->
 					<div class="mt-3 flex items-center space-x-4">
 						<div class="flex items-center text-sm">
-							<div class="h-3 w-3 bg-blue-500 rounded-full mr-2"></div>
+							<div class="h-3 w-3 bg-primary rounded-full mr-2"></div>
 							<span class="text-gray-600">Strumenti assegnati: </span>
-							<span class="font-medium text-blue-600 ml-1">{{ strumentiAssegnati.length }}</span>
+							<span class="font-medium text-primary ml-1">{{ strumentiAssegnati.length }}</span>
 						</div>
 						<div v-if="strumentiScaduti.length > 0" class="flex items-center text-sm">
 							<div class="h-3 w-3 bg-red-500 rounded-full mr-2"></div>
@@ -63,31 +63,41 @@
 					<div v-if="strumentiAssegnati.length > 0" class="mt-4">
 						<div class="flex items-center justify-between mb-2">
 							<h4 class="text-sm font-medium text-gray-700">Strumenti in uso:</h4>
-							<button @click="toggleStrumenti" class="text-sm text-blue-600 hover:text-blue-800">
+							<button @click="toggleStrumenti" class="text-sm font-medium text-blue-600 hover:text-blue-800">
 								{{ mostraStrumenti ? 'Nascondi' : 'Mostra' }}
 							</button>
 						</div>
 
 						<div v-show="mostraStrumenti" class="space-y-2">
 							<div v-for="strumento in strumentiAssegnati" :key="strumento.id"
-								class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-								<div class="flex-1">
-									<p class="text-sm font-medium text-gray-900">{{ strumento.nome }}</p>
-									<p class="text-xs text-gray-500">
-										{{ strumento.codice }} •
-										<span :class="{ 'text-red-600 font-medium': isScaduto(strumento) }">
-											{{ isScaduto(strumento) ? 'Scaduto' : 'Scade' }} il {{
-											formatData(strumento.dataScadenza) }}
-										</span>
-									</p>
+								class=" p-3 bg-blue-50 rounded-lg gap-1">
+								<div class="flex items-center">
+									<svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M259.1 73.5C262.1 58.7 275.2 48 290.4 48L350.2 48C365.4 48 378.5 58.7 381.5 73.5L396 143.5C410.1 149.5 423.3 157.2 435.3 166.3L503.1 143.8C517.5 139 533.3 145 540.9 158.2L570.8 210C578.4 223.2 575.7 239.8 564.3 249.9L511 297.3C511.9 304.7 512.3 312.3 512.3 320C512.3 327.7 511.8 335.3 511 342.7L564.4 390.2C575.8 400.3 578.4 417 570.9 430.1L541 481.9C533.4 495 517.6 501.1 503.2 496.3L435.4 473.8C423.3 482.9 410.1 490.5 396.1 496.6L381.7 566.5C378.6 581.4 365.5 592 350.4 592L290.6 592C275.4 592 262.3 581.3 259.3 566.5L244.9 496.6C230.8 490.6 217.7 482.9 205.6 473.8L137.5 496.3C123.1 501.1 107.3 495.1 99.7 481.9L69.8 430.1C62.2 416.9 64.9 400.3 76.3 390.2L129.7 342.7C128.8 335.3 128.4 327.7 128.4 320C128.4 312.3 128.9 304.7 129.7 297.3L76.3 249.8C64.9 239.7 62.3 223 69.8 209.9L99.7 158.1C107.3 144.9 123.1 138.9 137.5 143.7L205.3 166.2C217.4 157.1 230.6 149.5 244.6 143.4L259.1 73.5zM320.3 400C364.5 399.8 400.2 363.9 400 319.7C399.8 275.5 363.9 239.8 319.7 240C275.5 240.2 239.8 276.1 240 320.3C240.2 364.5 276.1 400.2 320.3 400z"/></svg>
+									<div>
+										<p class="text-sm font-medium text-blue-900">{{ strumento.nome }}</p>
+										<p class="text-xs text-blue-700">
+											{{ strumento.codice }} •
+											<span :class="{ 'text-red-600 font-medium': isScaduto(strumento) }">
+												{{ isScaduto(strumento) ? 'Scaduto' : 'Scade' }} il {{
+												formatData(strumento.dataScadenza) }}
+											</span>
+										</p>
+									</div>
 								</div>
-								<div class="flex space-x-2">
+								<div class="flex space-x-2 mt-2">
 									<button @click="$emit('libera-strumento', strumento.id)"
-										class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+										class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200">
+										<svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a3 3 0 116 0m-3 7h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+										</svg>
 										Libera
 									</button>
 									<button @click="$emit('trasferisci-strumento', strumento.id)"
-										class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
+										class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-green-700 bg-green-100 hover:bg-green-200">
+										<svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+												d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+										</svg>
 										Trasferisci
 									</button>
 								</div>
@@ -98,22 +108,18 @@
 			</div>
 
 			<!-- Azioni -->
-			<div class="mt-4 sm:mt-0 flex-shrink-0 flex items-center">
-				<div class="mr-2">
+			<div class="mt-4 sm:mt-0 flex-shrink-0 flex items-center flex-wrap gap-2">
+				<div>
 					<button @click="$emit('assegna-strumento', operatore.id)" type="button"
-						class="inline-flex items-center px-3 py-2 border border-green-300 shadow-sm text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
-							stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-								d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-						</svg>
-						Assegna Strumento
+						class="inline-flex items-center px-3 py-2 border border-green-300 shadow-sm text-sm leading-4 font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+						<svg class="h-4 w-4 mr-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M259.1 73.5C262.1 58.7 275.2 48 290.4 48L350.2 48C365.4 48 378.5 58.7 381.5 73.5L396 143.5C410.1 149.5 423.3 157.2 435.3 166.3L503.1 143.8C517.5 139 533.3 145 540.9 158.2L570.8 210C578.4 223.2 575.7 239.8 564.3 249.9L511 297.3C511.9 304.7 512.3 312.3 512.3 320C512.3 327.7 511.8 335.3 511 342.7L564.4 390.2C575.8 400.3 578.4 417 570.9 430.1L541 481.9C533.4 495 517.6 501.1 503.2 496.3L435.4 473.8C423.3 482.9 410.1 490.5 396.1 496.6L381.7 566.5C378.6 581.4 365.5 592 350.4 592L290.6 592C275.4 592 262.3 581.3 259.3 566.5L244.9 496.6C230.8 490.6 217.7 482.9 205.6 473.8L137.5 496.3C123.1 501.1 107.3 495.1 99.7 481.9L69.8 430.1C62.2 416.9 64.9 400.3 76.3 390.2L129.7 342.7C128.8 335.3 128.4 327.7 128.4 320C128.4 312.3 128.9 304.7 129.7 297.3L76.3 249.8C64.9 239.7 62.3 223 69.8 209.9L99.7 158.1C107.3 144.9 123.1 138.9 137.5 143.7L205.3 166.2C217.4 157.1 230.6 149.5 244.6 143.4L259.1 73.5zM320.3 400C364.5 399.8 400.2 363.9 400 319.7C399.8 275.5 363.9 239.8 319.7 240C275.5 240.2 239.8 276.1 240 320.3C240.2 364.5 276.1 400.2 320.3 400z"/></svg>
+						Assegna
 					</button>
 				</div>
 
-				<div class="mr-2">
+				<div>
 					<button @click="$emit('modifica', operatore)" type="button"
-						class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+						class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
 							stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -122,9 +128,9 @@
 						Modifica
 					</button>
 				</div>
-				<div class="">
+				<div>
 					<button @click="$emit('elimina', operatore.id)" type="button"
-						class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+						class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
 							stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

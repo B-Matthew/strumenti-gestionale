@@ -13,8 +13,8 @@
 							Gestisci facilmente i tuoi operatori e i loro strumenti assegnati con funzionalità complete
 							di assegnazione e trasferimento.
 						</p>
-						<div class="mt-6 flex space-x-4">
-							<button @click="showForm = true" class="btn_base_v2">
+						<div class="mt-6 flex space-x-4 flex-wrap gap-y-4">
+							<button @click="showForm.openModal" class="btn_base_v2">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
 									fill="currentColor">
 									<path fill-rule="evenodd"
@@ -23,7 +23,7 @@
 								</svg>
 								Aggiungi Operatore
 							</button>
-							<button @click="showRiepilogoAssegnazioni = true" class="btn_base_v2">
+							<button @click="showRiepilogoAssegnazioni.openModal()" class="btn_base_v2">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
 									viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,13 +39,13 @@
 			<!-- Lista operatori con le card -->
 			<div class="px-4 sm:px-0">
 				<div class="bg-white shadow rounded-lg overflow-hidden">
-					<div class="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between items-center">
+					<div class="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between items-center flex-wrap gap-2">
 						<h3 class="text-lg leading-6 font-medium text-gray-900">
 							Elenco Operatori
 						</h3>
-						<div class="flex space-x-2">
+						<div class="space-x-2 max-md:w-full">
 							<input type="text" placeholder="Cerca operatore..." v-model="filtri.ricerca"
-								class="text-gray-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2">
+								class="min-w-[300px] text-gray-900 shadow-sm border-[1px] block w-full sm:text-sm border-gray-300 rounded-md p-2">
 						</div>
 					</div>
 					<div class="divide-y divide-gray-200">
@@ -63,7 +63,7 @@
 							<p class="mt-2">
 								{{ filtri.ricerca ? 'Nessun operatore trovato con i filtri attuali' : 'Nessun operatore presente' }}
 							</p>
-							<button @click="showForm = true"
+							<button @click="showForm.openModal"
 								class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
 								{{ filtri.ricerca ? 'Aggiungi operatore' : 'Aggiungi il primo operatore' }}
 							</button>
@@ -75,12 +75,12 @@
 	</div>
 
 	<!-- Form modale operatori -->
-	<OperatoreForm v-if="showForm" :iniziali="operatoreSelezionato" @salvato="gestisciSalvataggio"
+	<OperatoreForm v-if="showForm.isOpen.value" :iniziali="operatoreSelezionato" @salvato="gestisciSalvataggio"
 		@annulla="chiudiForm" />
 
 	<!-- Modal di conferma eliminazione -->
-	<div v-if="mostraConfermaEliminazione"
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
+	<div v-if="mostraConfermaEliminazione.isOpen.value"
+		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50 px-4">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="flex items-center">
 				<div class="flex-shrink-0">
@@ -98,15 +98,15 @@
 						<span v-if="strumentiOperatoreDaEliminare.length > 0"
 							class="block mt-1 font-medium text-red-600">
 							⚠️ Attenzione: Ha {{ strumentiOperatoreDaEliminare.length }} strument{{
-								strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }} assegnato{{
-								strumentiOperatoreDaEliminare.length > 1 ? 'i' : '' }}.
+								strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }} assegnat{{
+								strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }}.
 							Verranno automaticamente liberati.
 						</span>
 					</p>
 				</div>
 			</div>
 			<div class="mt-5 flex justify-end space-x-3">
-				<button @click="mostraConfermaEliminazione = false"
+				<button @click="mostraConfermaEliminazione.closeModal()"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 					Annulla
 				</button>
@@ -119,8 +119,8 @@
 	</div>
 
 	<!-- Modal per assegnare strumento a operatore -->
-	<div v-if="showAssegnaStrumentoModal"
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
+	<div v-if="showAssegnaStrumentoModal.isOpen.value"
+		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50 px-4">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="mb-5">
 				<h3 class="text-lg font-medium text-gray-900">Assegna Strumento</h3>
@@ -171,8 +171,8 @@
 					</button>
 					<button type="submit" :disabled="!strumentoSelezionatoId || strumentiDisponibili.length === 0"
 						:class="[
-							'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
-							strumentoSelezionatoId && strumentiDisponibili.length > 0 ? 'bg-primary hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'
+							'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white',
+							strumentoSelezionatoId && strumentiDisponibili.length > 0 ? 'bg-primary' : 'bg-gray-400 cursor-not-allowed'
 						]">
 						Assegna Strumento
 					</button>
@@ -182,16 +182,16 @@
 	</div>
 
 	<!-- Modal riepilogo assegnazioni -->
-	<div v-if="showRiepilogoAssegnazioni"
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
+	<div v-if="showRiepilogoAssegnazioni.isOpen.value"
+		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50 px-4">
 		<div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-auto p-6 max-h-[90vh] overflow-hidden">
-			<div class="mb-5 flex justify-between items-center">
+			<div class="mb-5 flex justify-between items-start">
 				<div>
 					<h3 class="text-lg font-medium text-gray-900">Riepilogo Assegnazioni</h3>
 					<p class="mt-1 text-sm text-gray-500">Panoramica completa di tutti gli strumenti assegnati per
 						operatore</p>
 				</div>
-				<button @click="showRiepilogoAssegnazioni = false" class="text-gray-400 hover:text-gray-600">
+				<button @click="showRiepilogoAssegnazioni.closeModal()" class="text-gray-400 hover:text-gray-600">
 					<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 							d="M6 18L18 6M6 6l12 12" />
@@ -218,9 +218,9 @@
 						</div>
 						<div v-if="assegnazione.strumenti.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-2">
 							<div v-for="strumento in assegnazione.strumenti" :key="strumento.id"
-								class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+								class="flex justify-between items-center py-2 bg-gray-50 rounded text-sm gap-1 flex-wrap">
 								<div>
-									<span class="font-medium">{{ strumento.nome }}</span>
+									<span class="text-gray-500 font-medium">{{ strumento.nome }}</span>
 									<span class="text-gray-500 ml-2">({{ strumento.codice }})</span>
 								</div>
 								<span :class="[
@@ -250,7 +250,7 @@
 	</div>
 
 	<!-- Modal per conferma liberazione strumento -->
-	<div v-if="mostraConfermaLiberazione"
+	<div v-if="mostraConfermaLiberazione.isOpen.value"
 		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="flex items-center">
@@ -270,12 +270,12 @@
 				</div>
 			</div>
 			<div class="mt-5 flex justify-end space-x-3">
-				<button @click="mostraConfermaLiberazione = false"
+				<button @click="mostraConfermaLiberazione.closeModal()"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 					Annulla
 				</button>
 				<button @click="confermaLiberazione"
-					class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+					class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary ">
 					Libera Strumento
 				</button>
 			</div>
@@ -283,7 +283,7 @@
 	</div>
 
 	<!-- Modal trasferimento strumento (riusa AssegnazioneModal) -->
-	<div v-if="showTrasferimentoModal"
+	<div v-if="showTrasferimentoModal.isOpen.value"
 		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
 			<div class="mb-5">
@@ -347,6 +347,7 @@ import { useStrumenti } from '@/composables/useStrumenti'
 import { useAssegnazioni } from '@/composables/useAssegnazioni'
 import OperatoreCard from '@/components/operatori/OperatoreCard.vue'
 import OperatoreForm from '@/components/operatori/OperatoreForm.vue'
+import { useModal } from '@/composables/modal-composable'
 
 const { operatori, getOperatori, eliminaOperatore } = useOperatori()
 const { strumenti, getStrumenti } = useStrumenti()
@@ -358,17 +359,17 @@ const {
 	getStrumentiOperatore
 } = useAssegnazioni()
 
-const showForm = ref(false)
+const showForm = useModal()
 const operatoreSelezionato = ref(null)
-const mostraConfermaEliminazione = ref(false)
+const mostraConfermaEliminazione = useModal()
 const operatoreDaEliminare = ref(null)
-const showAssegnaStrumentoModal = ref(false)
+const showAssegnaStrumentoModal = useModal()
 const operatorePerAssegnazione = ref(null)
 const strumentoSelezionatoId = ref('')
-const showRiepilogoAssegnazioni = ref(false)
-const mostraConfermaLiberazione = ref(false)
+const showRiepilogoAssegnazioni = useModal()
+const mostraConfermaLiberazione = useModal()
 const strumentoDaLiberare = ref(null)
-const showTrasferimentoModal = ref(false)
+const showTrasferimentoModal = useModal()
 const strumentoDaTrasferire = ref(null)
 const nuovoOperatoreId = ref('')
 
@@ -412,14 +413,14 @@ const altriOperatori = computed(() => {
 // Gestori eventi
 const onModifica = (operatore) => {
 	operatoreSelezionato.value = { ...operatore }
-	showForm.value = true
+	showForm.openModal()
 }
 
 const onElimina = (id) => {
 	const trovato = operatori.value.find(o => o.id === id)
 	if (trovato) {
 		operatoreDaEliminare.value = trovato
-		mostraConfermaEliminazione.value = true
+		mostraConfermaEliminazione.openModal()
 	}
 }
 
@@ -428,7 +429,7 @@ const onAssegnaStrumento = (operatoreId) => {
 	if (operatore) {
 		operatorePerAssegnazione.value = operatore
 		strumentoSelezionatoId.value = ''
-		showAssegnaStrumentoModal.value = true
+		showAssegnaStrumentoModal.openModal()
 	}
 }
 
@@ -436,7 +437,7 @@ const onLiberaStrumento = (strumentoId) => {
 	const strumento = strumenti.value.find(s => s.id === strumentoId)
 	if (strumento) {
 		strumentoDaLiberare.value = strumento
-		mostraConfermaLiberazione.value = true
+		mostraConfermaLiberazione.openModal()
 	}
 }
 
@@ -444,8 +445,9 @@ const onTrasferiscaStrumento = (strumentoId) => {
 	const strumento = strumenti.value.find(s => s.id === strumentoId)
 	if (strumento) {
 		strumentoDaTrasferire.value = strumento
-		nuovoOperatoreId.value = ''
-		showTrasferimentoModal.value = true
+		nuovoOperatoreId.value = '';
+		console.log(showTrasferimentoModal.isOpen.value)
+		showTrasferimentoModal.openModal()
 	}
 }
 
@@ -460,7 +462,7 @@ const confermaEliminazione = async () => {
 		// Poi elimina l'operatore
 		await eliminaOperatore(operatoreDaEliminare.value.id)
 
-		mostraConfermaEliminazione.value = false
+		mostraConfermaEliminazione.closeModal()
 		operatoreDaEliminare.value = null
 		await getOperatori()
 	}
@@ -477,7 +479,7 @@ const eseguiAssegnazione = async () => {
 const confermaLiberazione = async () => {
 	if (strumentoDaLiberare.value) {
 		await liberaStrumento(strumentoDaLiberare.value.id)
-		mostraConfermaLiberazione.value = false
+		mostraConfermaLiberazione.closeModal()
 		strumentoDaLiberare.value = null
 		await getStrumenti()
 	}
@@ -505,18 +507,18 @@ const gestisciSalvataggio = async () => {
 }
 
 const chiudiForm = () => {
-	showForm.value = false
+	showForm.closeModal()
 	operatoreSelezionato.value = null
 }
 
 const chiudiAssegnaStrumentoModal = () => {
-	showAssegnaStrumentoModal.value = false
+	showAssegnaStrumentoModal.closeModal()
 	operatorePerAssegnazione.value = null
 	strumentoSelezionatoId.value = ''
 }
 
 const chiudiTrasferimentoModal = () => {
-	showTrasferimentoModal.value = false
+	showTrasferimentoModal.closeModal()
 	strumentoDaTrasferire.value = null
 	nuovoOperatoreId.value = ''
 }

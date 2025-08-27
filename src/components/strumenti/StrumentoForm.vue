@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50">
+		class="fixed inset-0 bg-gradient-to-br from-primary to-green bg-opacity-75 flex items-center justify-center z-50 px-4">
 		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6 max-h-[90vh] overflow-y-auto">
 			<div class="mb-5">
 				<h3 class="text-lg font-medium text-gray-900">

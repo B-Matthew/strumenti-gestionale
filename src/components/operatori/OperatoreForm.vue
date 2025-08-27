@@ -28,8 +28,8 @@
 
 				<!-- Email -->
 				<div>
-					<label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
-					<input type="email" id="email" v-model="form.email" placeholder="Inserisci l'email" required
+					<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+					<input type="email" id="email" v-model="form.email" placeholder="Inserisci l'email"
 						class="p-2 mt-1 text-gray shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full border border-gray-300 rounded-md" />
 				</div>
 
@@ -90,7 +90,7 @@ const form = reactive({
 })
 
 const isFormValid = computed(() => {
-	return form.nome.trim() && form.cognome.trim() && form.email.trim() && form.ruolo.trim()
+	return form.nome.trim() && form.cognome.trim()  && form.ruolo.trim()
 })
 
 watch(

@@ -7,7 +7,7 @@
 					<!-- Logo e titolo -->
 					<RouterLink to="/" class="inline-flex">
 						<div class="rounded flex items-center w-12 justify-center h-full py-2">
-							<img class="w-full h-full object-contain" src="/logo.jpg" alt="" />
+							<img class="w-full h-full object-contain" src="/logo.png" alt="" />
 						</div>
 					</RouterLink>
 

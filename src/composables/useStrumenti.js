@@ -54,18 +54,16 @@ export function useStrumenti() {
   };
 
   // ➕ Aggiungi nuovo strumento
-  const aggiungiStrumento = async (dati) => {
+  const aggiungiStrumento = async (dati) => {    
     const strumentoCompleto = {
       ...dati,
-      operatoreAssegnato: null,
-      dataAssegnazione: null,
       // Se lo stato è "assegnato" ma non c'è operatore, lo mettiamo disponibile
       stato:
         dati.stato === "assegnato" && !dati.operatoreAssegnato
           ? "disponibile"
           : dati.stato,
     };
-
+    
     await addDoc(strumentiRef, strumentoCompleto);
   };
 

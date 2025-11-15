@@ -57,10 +57,10 @@
 
 ## ☁️ Fase 7 – Deploy e ottimizzazione
 
-- [ ] Configurazione Firebase Hosting
-- [ ] Deploy progetto
-- [ ] Testing finale su desktop e mobile
-- [ ] Scrittura documentazione progetto
+- [x] Configurazione Firebase Hosting
+- [x] Deploy progetto
+- [x] Testing finale su desktop e mobile
+- [x] Scrittura documentazione progetto
 
 ---
 

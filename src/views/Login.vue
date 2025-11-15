@@ -6,7 +6,7 @@
         <!-- Header con logo/titolo -->
         <div class="bg-primary py-6 px-6">
           <h2 class="text-2xl font-bold text-white text-center">Gestionale Strumenti</h2>
-          <p class="text-blue-100 text-center mt-1">Accedi al tuo account</p>
+          <p class="text-white text-center mt-1">Accedi al tuo account</p>
         </div>
         
         <form @submit.prevent="login" class="p-8">
@@ -25,7 +25,7 @@
                 v-model="email" 
                 type="email" 
                 placeholder="Inserisci la tua email" 
-                class="w-full pl-10 pr-4 py-3 text-gray border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                class="w-full pl-10 pr-4 py-3 text-gray border border-gray-300 rounded-lg transition-colors" 
                 required 
               />
             </div>
@@ -45,22 +45,11 @@
                 v-model="password" 
                 type="password" 
                 placeholder="Inserisci la tua password" 
-                class="w-full pl-10 pr-4 py-3 text-gray border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                class="w-full pl-10 pr-4 py-3 text-gray border border-gray-300 rounded-lg transition-colors" 
                 required 
               />
             </div>
           </div>
-          
-          <!-- Checkbox remember me -->
-          <!-- <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center">
-              <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-              <label for="remember-me" class="ml-2 block text-sm text-gray">Ricordami</label>
-            </div>
-            <div class="text-sm">
-              <a href="#" class="font-medium text-primary hover:text-blue-500">Password dimenticata?</a>
-            </div>
-          </div> -->
           
           <!-- Button with loading state -->
 		   <div class="flex justify-center">

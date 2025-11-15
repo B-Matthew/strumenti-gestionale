@@ -31,152 +31,45 @@
 
 			<StatoStrumentiBlock />
 
-			<!-- Recent Activity & Quick Access -->
+			<!-- Recent Activity -->
 			<div class="px-4 sm:px-0">
-				<div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-					<!-- Recent Activity -->
-					<div class="lg:col-span-2">
-						<div class="bg-white shadow rounded-lg">
-							<div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-								<h3 class="text-lg leading-6 font-medium text-gray-900">
-									Attività Recenti
-								</h3>
-							</div>
-							<div class="px-4 py-3 sm:px-6">
-								<ul class="divide-y divide-gray-200">
-									<li class="py-4">
-										<div class="flex space-x-3">
-											<div class="flex-shrink-0">
-												<div
-													class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-													<span class="text-indigo-600 font-medium">MR</span>
-												</div>
-											</div>
-											<div class="min-w-0 flex-1">
-												<p class="text-sm font-medium text-gray-900">
-													<a href="#" class="hover:underline">Mario Rossi</a>
-												</p>
-												<p class="text-sm text-gray-500">
-													Ha preso in prestito <span class="font-medium">Trapano a
-														percussione</span>
-												</p>
-												<p class="text-xs text-gray-400 mt-1">2 ore fa</p>
-											</div>
-										</div>
-									</li>
-									<li class="py-4">
-										<div class="flex space-x-3">
-											<div class="flex-shrink-0">
-												<div
-													class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-													<span class="text-green-600 font-medium">LB</span>
-												</div>
-											</div>
-											<div class="min-w-0 flex-1">
-												<p class="text-sm font-medium text-gray-900">
-													<a href="#" class="hover:underline">Luigi Bianchi</a>
-												</p>
-												<p class="text-sm text-gray-500">
-													Ha restituito <span class="font-medium">Sega circolare</span>
-												</p>
-												<p class="text-xs text-gray-400 mt-1">Ieri alle 14:30</p>
-											</div>
-										</div>
-									</li>
-									<li class="py-4">
-										<div class="flex space-x-3">
-											<div class="flex-shrink-0">
-												<div
-													class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-													<span class="text-blue-600 font-medium">GV</span>
-												</div>
-											</div>
-											<div class="min-w-0 flex-1">
-												<p class="text-sm font-medium text-gray-900">
-													<a href="#" class="hover:underline">Giulia Verdi</a>
-												</p>
-												<p class="text-sm text-gray-500">
-													Ha aggiunto <span class="font-medium">3 nuovi strumenti</span>
-													all'inventario
-												</p>
-												<p class="text-xs text-gray-400 mt-1">2 giorni fa</p>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="px-4 py-4 border-t border-gray-200 sm:px-6">
-								<a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500">Visualizza
-									tutte le attività</a>
-							</div>
+				<div class="bg-white shadow rounded-lg">
+					<div class="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between items-center">
+						<h3 class="text-lg leading-6 font-medium text-gray-900">
+							Attività Recenti
+						</h3>
+						<RouterLink to="/attivita" class="text-sm font-medium text-blue-600 hover:text-blue-500">
+							Visualizza tutte →
+						</RouterLink>
+					</div>
+					<div class="px-4 py-3 sm:px-6">
+						<!-- Loading state -->
+						<div v-if="loading" class="py-8 text-center">
+							<svg class="animate-spin h-8 w-8 mx-auto text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+								<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+								<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+							</svg>
+							<p class="mt-2 text-sm text-gray-500">Caricamento attività...</p>
+						</div>
+
+						<!-- Lista attività -->
+						<ul v-else-if="attivita.length > 0" class="divide-y divide-gray-200">
+							<AttivitaItem 
+								v-for="attivitaItem in attivita" 
+								:key="attivitaItem.id" 
+								:attivita="attivitaItem"
+							/>
+						</ul>
+
+						<!-- Nessuna attività -->
+						<div v-else class="py-8 text-center text-gray-500">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+							</svg>
+							<p>Nessuna attività recente</p>
+							<p class="text-sm mt-1">Le attività del sistema appariranno qui</p>
 						</div>
 					</div>
-
-					<!-- Quick Access -->
-					<!-- <div class="lg:col-span-1">
-						<div class="bg-white shadow rounded-lg">
-							<div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-								<h3 class="text-lg leading-6 font-medium text-gray-900">
-									Accesso Rapido
-								</h3>
-							</div>
-							<div class="p-4">
-								<div class="grid grid-cols-2 gap-4">
-									<button
-										class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors">
-										<div
-											class="h-8 w-8 bg-blue-100 text-blue-600 rounded-md flex items-center justify-center mb-2">
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-												fill="currentColor">
-												<path fill-rule="evenodd"
-													d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-													clip-rule="evenodd" />
-											</svg>
-										</div>
-										<span class="text-sm text-gray-700">Nuovo Prestito</span>
-									</button>
-									<button
-										class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors">
-										<div
-											class="h-8 w-8 bg-green-100 text-green-600 rounded-md flex items-center justify-center mb-2">
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-												fill="currentColor">
-												<path fill-rule="evenodd"
-													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-													clip-rule="evenodd" />
-											</svg>
-										</div>
-										<span class="text-sm text-gray-700">Restituzione</span>
-									</button>
-									<button
-										class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors">
-										<div
-											class="h-8 w-8 bg-indigo-100 text-indigo-600 rounded-md flex items-center justify-center mb-2">
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-												fill="currentColor">
-												<path
-													d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-											</svg>
-										</div>
-										<span class="text-sm text-gray-700">Inventario</span>
-									</button>
-									<button
-										class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors">
-										<div
-											class="h-8 w-8 bg-yellow-100 text-yellow-600 rounded-md flex items-center justify-center mb-2">
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-												fill="currentColor">
-												<path fill-rule="evenodd"
-													d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-													clip-rule="evenodd" />
-											</svg>
-										</div>
-										<span class="text-sm text-gray-700">Report</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -184,9 +77,26 @@
 </template>
 
 <script setup>
-// Per ora mantenuto vuoto, pronto per l'aggiunta di logica
-import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue';
+import { onMounted, onUnmounted } from 'vue'
+import StatoStrumentiBlock from '@/components/strumenti/StatoStrumentiBlock.vue'
+import AttivitaItem from '@/components/AttivitaItem.vue'
+import { useAttivita } from '@/composables/useAttivita'
 
+const { attivita, loading, getAttivitaRecenti } = useAttivita()
+
+let unsubscribe = null
+
+onMounted(() => {
+	// Carica le ultime 5 attività in tempo reale
+	unsubscribe = getAttivitaRecenti(5)
+})
+
+onUnmounted(() => {
+	// Cleanup del listener
+	if (unsubscribe) {
+		unsubscribe()
+	}
+})
 </script>
 
 <style scoped>

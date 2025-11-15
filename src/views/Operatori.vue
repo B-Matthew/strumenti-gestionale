@@ -39,7 +39,8 @@
 			<!-- Lista operatori con le card -->
 			<div class="px-4 sm:px-0">
 				<div class="bg-white shadow rounded-lg overflow-hidden">
-					<div class="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between items-center flex-wrap gap-2">
+					<div
+						class="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between items-center flex-wrap gap-2">
 						<h3 class="text-lg leading-6 font-medium text-gray-900">
 							Elenco Operatori
 						</h3>
@@ -55,16 +56,22 @@
 
 						<!-- Nessun risultato -->
 						<div v-if="operatoriFiltrati.length === 0" class="py-10 text-center text-gray-500">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none"
-								viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+							<svg class="h-12 w-12 mx-auto text-gray-400" fill="currentColor" height="200px"
+								width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+								xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+								enable-background="new 0 0 512 512" xml:space="preserve">
+								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+								<g id="SVGRepo_iconCarrier">
+									<path
+										d="M448,362.7l-117.3-21.3C320,320,320,310.7,320,298.7c10.7-10.7,32-21.3,32-32c10.7-32,10.7-53.3,10.7-53.3 c5.5-8,21.3-21.3,21.3-42.7s-21.3-42.7-21.3-53.3C362.7,32,319.2,0,256,0c-60.5,0-106.7,32-106.7,117.3c0,10.7-21.3,32-21.3,53.3 s15.2,35.4,21.3,42.7c0,0,0,21.3,10.7,53.3c0,10.7,21.3,21.3,32,32c0,10.7,0,21.3-10.7,42.7L64,362.7C21.3,373.3,0,448,0,512h512 C512,448,490.7,373.3,448,362.7z">
+									</path>
+								</g>
 							</svg>
 							<p class="mt-2">
 								{{ filtri.ricerca ? 'Nessun operatore trovato con i filtri attuali' : 'Nessun operatore presente' }}
 							</p>
-							<button @click="showForm.openModal"
-								class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+							<button @click="showForm.openModal" class="mt-4 btn_base">
 								{{ filtri.ricerca ? 'Aggiungi operatore' : 'Aggiungi il primo operatore' }}
 							</button>
 						</div>
@@ -94,12 +101,12 @@
 					<h3 class="text-lg font-medium text-gray-900">Conferma eliminazione</h3>
 					<p class="mt-2 text-sm text-gray-500">
 						Sei sicuro di voler eliminare l'operatore "{{ operatoreDaEliminare?.nome }} {{
-							operatoreDaEliminare?.cognome }}"?
+						operatoreDaEliminare?.cognome }}"?
 						<span v-if="strumentiOperatoreDaEliminare.length > 0"
 							class="block mt-1 font-medium text-red-600">
 							⚠️ Attenzione: Ha {{ strumentiOperatoreDaEliminare.length }} strument{{
-								strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }} assegnat{{
-								strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }}.
+							strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }} assegnat{{
+							strumentiOperatoreDaEliminare.length > 1 ? 'i' : 'o' }}.
 							Verranno automaticamente liberati.
 						</span>
 					</p>
@@ -126,7 +133,7 @@
 				<h3 class="text-lg font-medium text-gray-900">Assegna Strumento</h3>
 				<p class="mt-1 text-sm text-gray-500">
 					Seleziona uno strumento da assegnare a {{ operatorePerAssegnazione?.nome }} {{
-						operatorePerAssegnazione?.cognome }}
+					operatorePerAssegnazione?.cognome }}
 				</p>
 			</div>
 
@@ -213,7 +220,7 @@
 							<span
 								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
 								{{ assegnazione.strumenti.length }} strument{{ assegnazione.strumenti.length !== 1 ? 'i'
-									: 'o' }}
+								: 'o' }}
 							</span>
 						</div>
 						<div v-if="assegnazione.strumenti.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-2">

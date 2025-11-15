@@ -41,21 +41,26 @@ a {
 	transition: color 0.2s ease-in-out;
 }
 
-a:hover, a:focus { 
-	@apply text-green;
-}
-
 body, html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+input {
+	@apply appearance-none;
+}
+
+input:focus {
+	@apply outline-primary outline-1;
+
+}
+
 /* buttons */
 
 button:focus,
 button:focus-visible {
-	outline: 1px auto -webkit-focus-ring-color;
+	@apply outline-current outline-2;
 }
 
 button {
@@ -67,5 +72,5 @@ button {
 }
 
 .btn_base_v2 {
-	@apply inline-flex justify-center items-center cursor-pointer bg-secondary py-3 px-8 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r transition-all;
+	@apply inline-flex justify-center items-center cursor-pointer bg-secondary py-3 px-8 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r transition-all hover:bg-secondary/90;
 }

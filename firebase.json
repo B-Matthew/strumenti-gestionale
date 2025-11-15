@@ -1,5 +1,6 @@
 {
   "hosting": {
+	"site": "strumenti-gestionale",
     "public": "dist",
     "ignore": [
       "firebase.json",

@@ -13,10 +13,10 @@
 
 			<!-- Contenuto -->
 			<div class="min-w-0 flex-1">
-				<p class="text-sm font-medium text-gray-900">
-					{{ attivita.userEmail || 'Sistema' }}
+				<p class="text-sm font-medium text-gray">
+					<!-- {{ attivita.userEmail || 'Sistema' }} -->
 				</p>
-				<p class="text-sm text-gray-500">
+				<p class="text-sm text-gray">
 					{{ attivita.descrizione }}
 				</p>
 				<p class="text-xs text-gray-400 mt-1">

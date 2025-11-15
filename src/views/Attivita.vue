@@ -110,7 +110,7 @@
 							<button 
 								v-if="filtroTipo || ricerca"
 								@click="resetFiltri"
-								class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+								class="mt-4 btn_base"
 							>
 								Reimposta filtri
 							</button>

@@ -141,15 +141,15 @@
 			<div class="mb-4 p-3 bg-blue-50 rounded-lg">
 				<div class="flex items-center">
 					<div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-						<svg class="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+						<svg class="h-5 w-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
 							<path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
 								clip-rule="evenodd" />
 						</svg>
 					</div>
 					<div class="ml-3">
-						<p class="text-sm font-medium text-blue-900">{{ operatorePerAssegnazione?.nome }} {{
+						<p class="text-sm font-medium text-primary">{{ operatorePerAssegnazione?.nome }} {{
 							operatorePerAssegnazione?.cognome }}</p>
-						<p class="text-xs text-blue-700">{{ operatorePerAssegnazione?.ruolo }}</p>
+						<p class="text-xs text-primary">{{ operatorePerAssegnazione?.ruolo }}</p>
 					</div>
 				</div>
 			</div>

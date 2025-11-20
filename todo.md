@@ -67,5 +67,13 @@
 ## 🧪 Extra (Opzionali)
 
 - [ ] Sistema ruoli - eventuale aggiunta utenti dall'admin
-- [ ] Storico assegnazioni strumenti
+- [X] Storico assegnazioni strumenti
 - [ ] Import/Export dati CSV
+
+
+## Fase 8 - Gestione Camion
+
+- [x] Definizione struttura collezione `camion` su Firestore
+- [x] Pagina lista strumenti
+- [x] Funzionalità: Aggiungi / Modifica / Elimina strumento
+- [x] Campi: Nome, Codice Generico, Note aggiuntive, 

@@ -37,6 +37,7 @@
 					</svg>
 					<span>Operatori</span>
 				</RouterLink>
+				
 	
 				<RouterLink to="/strumenti" class="flex flex-col items-center justify-center text-center"
 					:class="{ 'text-white': isActiveRoute('/strumenti') }">

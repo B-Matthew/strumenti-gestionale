@@ -48,7 +48,7 @@
 					<!-- Statistiche strumenti -->
 					<div class="mt-3 flex items-center space-x-4">
 						<div class="flex items-center text-sm">
-							<div class="h-3 w-3 bg-primary rounded-full mr-2"></div>
+							<div class="h-3 w-3 rounded-full mr-2" :class="[strumentiAssegnati.length ? 'bg-secondary' : 'bg-primary' ]"></div>
 							<span class="text-gray-600">Strumenti assegnati: </span>
 							<span class="font-medium text-primary ml-1">{{ strumentiAssegnati.length }}</span>
 						</div>
